@@ -76,7 +76,7 @@ head(Activity_DateSum_ExNA,5)
 
 #### 2. Make a histogram of the total number of steps taken each day
 
-The following R code plots the data from the Activity_DateSum_ExNA data frame into a histogram.  First the library ggplot2 is loaded as this is used for several plots in this assignment.
+The following R code plots the data from the Activity_DateSum_ExNA data frame into a histogram.  First the library ggplot2 is loaded as this is used for several plots in this assignment.  The histogram plots the total number of steps taken per day binned into groups of 1000.  According to this plot, the most common number of steps per day was between 10,000 and 13,000 steps with a total of 20 days in this range.  The most frequent number of steps per day was at 10 days where there were between 10,000 and 11,000 steps.
 
 
 ```r
@@ -85,13 +85,13 @@ library(ggplot2)
 ```
 
 ```r
-# Histogram with 5-minute intervals binned into groups of 1000.
+# Histogram with 5-minute intervals binned into groups of 1000
 g <- ggplot(data = Activity_DateSum_ExNA, aes(Activity_DateSum_ExNA$steps)) 
 g <- g +  geom_histogram(breaks=seq(0, 25000, by = 1000),
   fill = I('dodgerblue'), binwidth = 0.20, color = I('black')) 
 g <- g + scale_y_continuous(breaks = seq(0, 10, by = 1)) + 
   scale_x_continuous(breaks = seq(0, 25000, by = 5000))
-g <- g + labs(x = "Steps taken per Day") + labs(y = "Frequency")
+g <- g + labs(x = "Steps Taken per Day") + labs(y = "Frequency")
 g <- g + ggtitle('Number of Steps Taken per Day \n Oct 1st through Nov 30th 2012 - NA Observations Excluded')
 g
 ```
@@ -137,7 +137,7 @@ Activity_IntervalSum_ExNA <- Activity_Detail %>% filter(!is.na(steps)) %>%
 x<- c("Midnight", "5:00AM", "10:00AM", "3:00PM", "8:00PM")
 
 # Line plot
-with(Activity_IntervalSum_ExNA, plot(interval, avg_steps, type='l', xaxt="n", ylab="Average Number of Steps", xlab="Time Interval", main="Average Steps Per 5-Minute Interval"))
+with(Activity_IntervalSum_ExNA, plot(interval, avg_steps, type='l', xaxt="n", ylab="Average Number of Steps", xlab="Time Interval", main="Average Steps Per 5-Minute Interval - NA Observations Excluded"))
 with(Activity_IntervalSum_ExNA, lines(interval, avg_steps))
 axis(1, at=c(0,500,1000,1500,2000),labels=x)
 ```
@@ -239,7 +239,7 @@ Activity_DateSum <- Activity_Detail_New %>% group_by(date) %>% summarize(steps=s
 g <- ggplot(data = Activity_DateSum, aes(Activity_DateSum$steps)) 
 g <- g +  geom_histogram(breaks=seq(0, 25000, by = 1000),fill = I('dodgerblue'), binwidth = 0.20, color = I('black')) 
 g <- g + scale_y_continuous(breaks = seq(0, 20, by = 1)) + scale_x_continuous(breaks = seq(0, 25000, by = 5000))
-g <- g + labs(x = "Steps taken per Day") + labs(y = "Frequency")
+g <- g + labs(x = "Steps Taken per Day") + labs(y = "Frequency")
 g <- g + ggtitle('Number of Steps Taken per Day \n October 1st through Nov 30th 2012')
 g
 ```
@@ -311,7 +311,7 @@ x<- c("Midnight", "5:00AM", "10:00AM", "3:00PM", "8:00PM")
 # Line plot illustrating avg number of steps per 5-minute interval.  Separate facets for weekends and weekdays.
 g <- ggplot(Activity_IntervalSum_Weekend, aes(interval, avg_steps)) + geom_line()
 g <- g + facet_wrap(~ Weekend_Weekday, ncol = 1) + labs(x = "Time Interval") + labs(y = "Average Number of Steps")
-g <- g + ggtitle('Average Steps Per 5-Minute Interval \n Contrast between Weekends and Weekdays')
+g <- g + ggtitle('Average Steps Per 5-Minute Interval \n Contrast Between Weekends and Weekdays')
 g <- g + scale_x_continuous(breaks=c(0,500,1000,1500,2000), labels=x)
 g
 ```
